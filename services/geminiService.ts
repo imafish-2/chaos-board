@@ -2,9 +2,12 @@ import { GoogleGenAI } from "@google/genai";
 
 let aiClient: GoogleGenAI | null = null;
 
+// Safe access to process.env
+const apiKey = (typeof process !== 'undefined' && process.env) ? process.env.API_KEY : undefined;
+
 // Initialize strictly with process.env.API_KEY
-if (process.env.API_KEY) {
-  aiClient = new GoogleGenAI({ apiKey: process.env.API_KEY });
+if (apiKey) {
+  aiClient = new GoogleGenAI({ apiKey });
 }
 
 export const generateChaosEvent = async (currentRound: number): Promise<{ title: string; description: string; effectType: string }> => {
