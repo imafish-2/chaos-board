@@ -2,10 +2,17 @@ import { GoogleGenAI } from "@google/genai";
 
 let aiClient: GoogleGenAI | null = null;
 
-// Safe access to process.env
-const apiKey = (typeof process !== 'undefined' && process.env) ? process.env.API_KEY : undefined;
+// In Vite, process.env.API_KEY is replaced by the string value at build time.
+// We access it directly so the bundler can do its job. 
+// We use a try-catch or simple check to avoid runtime crashes if it wasn't replaced.
+let apiKey: string | undefined = undefined;
+try {
+  // @ts-ignore
+  apiKey = process.env.API_KEY;
+} catch (e) {
+  console.warn("API Key not found");
+}
 
-// Initialize strictly with process.env.API_KEY
 if (apiKey) {
   aiClient = new GoogleGenAI({ apiKey });
 }
