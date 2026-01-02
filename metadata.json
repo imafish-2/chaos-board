@@ -1,0 +1,5 @@
+{
+  "name": "Chaos Board",
+  "description": "A chaotic, Mario-Party style board game where AI generates the rules and your phone is the controller. Roll dice, play minigames, and steal stars.",
+  "requestFramePermissions": []
+}
